@@ -1,5 +1,7 @@
 from django.db import models
 
+import users
+
 
 class Course(models.Model):
     name = models.CharField(
@@ -16,6 +18,14 @@ class Course(models.Model):
         help_text="Загрузите фотографию курса",
         blank=True,
         null=True,
+    )
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="owner",
+        help_text="Укажите владельца урока",
     )
 
     class Meta:
@@ -37,8 +47,7 @@ class Lesson(models.Model):
         help_text="Выберите курс",
         null=True,
         blank=True,
-        related_name='lessons',
-
+        related_name="lessons",
     )
     photo = models.ImageField(
         upload_to="materials/photo",
@@ -49,6 +58,15 @@ class Lesson(models.Model):
     )
     video = models.URLField(
         blank=True, null=True, verbose_name="Видео", help_text="Загрузите видео урока"
+    )
+
+    owner = models.ForeignKey(
+        "users.User",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="owner",
+        help_text="Укажите владельца урока",
     )
 
     class Meta:

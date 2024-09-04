@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.conf import settings
+
 from materials.models import Course, Lesson
 
 
@@ -39,13 +40,8 @@ class User(AbstractUser):
         verbose_name_plural = "Пользователи"
 
 
-
-
 class Payment(models.Model):
-    PAYMENT_METHODS = [
-        ('cash', 'Наличные'),
-        ('transfer', 'Перевод на счет')
-    ]
+    PAYMENT_METHODS = [("cash", "Наличные"), ("transfer", "Перевод на счет")]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     payment_date = models.DateTimeField(auto_now_add=True)
@@ -56,4 +52,3 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment by {self.user.email} on {self.payment_date}"
-
