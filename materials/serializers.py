@@ -10,11 +10,8 @@ class LessonSerializer(ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ['id', 'name', 'course', 'owner', 'video']
-        read_only_fields = ['owner']
-
-
-
+        fields = ["id", "name", "course", "owner", "video"]
+        read_only_fields = ["owner"]
 
 
 class CourseSerializer(ModelSerializer):
@@ -34,9 +31,8 @@ class CourseDetailSerializer(ModelSerializer):
         fields = ("name", "description", "count_lesson_with_same_course")
 
 
-
 class SubscriptionSerializer(ModelSerializer):
     class Meta:
         model = Subscription
-        fields = ['user', 'course', 'subscribed_at']
-        read_only_fields = ['subscribed_at']
+        fields = ["user", "course", "subscribed_at"]
+        read_only_fields = ["subscribed_at"]

@@ -49,6 +49,13 @@ class Payment(models.Model):
     lesson = models.ForeignKey(Lesson, null=True, blank=True, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
+    session_id = models.CharField(max_length=255, blank=True, null=True, verbose_name="Session ID", help_text="Session ID")
+    link = models.URLField(max_length=400, blank=True, null=True, verbose_name="Payment")
+
+
+    class Meta:
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
 
     def __str__(self):
         return f"Payment by {self.user.email} on {self.payment_date}"
