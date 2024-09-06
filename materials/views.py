@@ -23,6 +23,7 @@ from materials.serializers import (
     LessonSerializer,
 )
 from users.permissions import IsModer, IsOwner
+from materials.tasks import send_course_update_email
 
 
 class LessonViewSet(ModelViewSet):
@@ -57,6 +58,27 @@ class CourseViewSet(ModelViewSet):
             self.permission_classes = (IsOwner | ~IsModer,)
 
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+
+        subscribers = Subscription.objects.filter(course=course).values_list('user__email', flat=True)
+
+
+        subject = f'Обновление курса: {course.title}'
+        message = f'Курс "{course.title}" был обновлен. Посетите курс для просмотра новых материалов.'
+
+
+        send_course_update_email.delay(subject, message, list(subscribers))
+
+
+
+
+
+
+
+
+
 
 
 class LessonCreateApiView(CreateAPIView):
