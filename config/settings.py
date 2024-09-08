@@ -146,7 +146,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
     'sample_task': {
-        'task': 'your_app_name.tasks.sample_task',
+        'task': 'config.tasks.sample_task',
         'schedule': crontab(minute='*/5'),
     },
 }
