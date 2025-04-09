@@ -25,7 +25,7 @@ This project is structured for scalability, clean API design, and Docker-based d
 ```bash
 ResourceManager/
 ├── config/                    # Project configuration 
-├── materials/                 # App for managing educational materials
+├── materials/                 # App for managing  materials
 │   ├── models.py              # Material model
 │   ├── serializers.py         # API serializers
 │   └── views.py               # Material views
